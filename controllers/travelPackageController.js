@@ -2,8 +2,21 @@
 
 import TravelPackage from "../models/travelPackage.js";
 
-// Create Package
+
+
+// helper: admin guard
+function ensureAdmin(req, res) {
+  if (!req.user || req.user.role !== "admin") {
+    res.status(403).json({ message: "Forbidden: Admins only" });
+    return false;
+  }
+  return true;
+}
+
+//  CREATE PACKAGE (ADMIN ONLY) 
 export function createPackage(req, res) {
+  if (!ensureAdmin(req, res)) return;
+
   const pkg = new TravelPackage(req.body);
 
   pkg
@@ -19,7 +32,7 @@ export function createPackage(req, res) {
     });
 }
 
-// Get All Packages
+//  GET ALL PACKAGES 
 export function getAllPackages(req, res) {
   TravelPackage.find()
     .then((packages) => {
@@ -33,7 +46,7 @@ export function getAllPackages(req, res) {
     });
 }
 
-// Get One Package
+//  GET ONE PACKAGE
 export function getPackage(req, res) {
   const id = req.params.id;
 
@@ -52,8 +65,10 @@ export function getPackage(req, res) {
     });
 }
 
-// Update Package
+//  UPDATE PACKAGE (ADMIN ONLY)
 export function updatePackage(req, res) {
+  if (!ensureAdmin(req, res)) return;
+
   const id = req.params.id;
 
   TravelPackage.findByIdAndUpdate(id, req.body, { new: true })
@@ -74,8 +89,10 @@ export function updatePackage(req, res) {
     });
 }
 
-// Delete Package
+//  DELETE PACKAGE (ADMIN ONLY)
 export function deletePackage(req, res) {
+  if (!ensureAdmin(req, res)) return;
+
   const id = req.params.id;
 
   TravelPackage.findByIdAndDelete(id)
