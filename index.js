@@ -7,6 +7,7 @@ import cors from "cors";
 import userRouter from "./routers/userRouter.js";
 import User from "./models/user.js";
 import packageRouter from "./routers/travelPackageRoutes.js";
+import galleryRouter from "./routers/galleryRouter.js";
 
 
 
@@ -84,7 +85,7 @@ app.use(async (req, res, next) => {
 
 app.use("/users", userRouter);
 app.use("/packages", packageRouter);
-
+app.use("/gallery", galleryRouter);
 
 
 app.listen(5000, () => {
