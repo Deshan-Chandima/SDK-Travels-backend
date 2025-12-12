@@ -7,6 +7,8 @@ import {
 //   getUser,
 //   googleLogin,
   LoginUser,
+  getAdmins,
+  deleteAdmin,
 //   resetPassword,
 //   sendOTP,
 //   getCustomers,  
@@ -18,6 +20,9 @@ const userRouter = express.Router();
 userRouter.post("/", createUser);
 userRouter.post("/create-admin", createAdmin);
 userRouter.post("/login", LoginUser);
+userRouter.get("/admins", getAdmins);
+userRouter.delete("/admin/:id", deleteAdmin);
+
 // userRouter.post("/googlelogin", googleLogin);
 // userRouter.post("/send-otp", sendOTP);
 // userRouter.post("/reset-password", resetPassword);

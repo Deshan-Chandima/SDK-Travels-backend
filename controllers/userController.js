@@ -130,3 +130,32 @@ export function isAdmin(req) {
   if (req.user == null) return false;
   return req.user.role === "admin";
 }
+
+
+// GET ALL ADMINS
+export function getAdmins(req, res) {
+  User.find({ role: "admin" })
+    .sort({ createdAt: -1 })
+    .then((admins) => {
+      res.json(admins);
+    })
+    .catch((error) => {
+      console.error("Error fetching admins:", error);
+      res.status(500).json({ message: "Failed to fetch admins" });
+    });
+}
+
+
+// DELETE ADMIN
+export const deleteAdmin = async (req, res) => {
+  try {
+    const adminId = req.params.id;
+
+    await User.findByIdAndDelete(adminId);
+
+    res.json({ message: "Admin deleted successfully" });
+  } catch (error) {
+    console.log("Delete error:", error);
+    res.status(500).json({ message: "Failed to delete admin" });
+  }
+};
