@@ -147,7 +147,7 @@ export function getAdmins(req, res) {
 
 
 // DELETE ADMIN
-export const deleteAdmin = async (req, res) => {
+export const deleteAdmin = async (req, res) => {  
   try {
     const adminId = req.params.id;
 

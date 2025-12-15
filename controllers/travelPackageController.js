@@ -46,7 +46,7 @@ export function getAllPackages(req, res) {
     });
 }
 
-//  GET ONE PACKAGE
+// controllers/travelPackageController.js
 export function getPackage(req, res) {
   const id = req.params.id;
 
@@ -65,6 +65,7 @@ export function getPackage(req, res) {
     });
 }
 
+
 //  UPDATE PACKAGE (ADMIN ONLY)
 export function updatePackage(req, res) {
   if (!ensureAdmin(req, res)) return;
@@ -75,7 +76,7 @@ export function updatePackage(req, res) {
     .then((updated) => {
       if (!updated) {
         return res.status(404).json({ message: "Package Not Found" });
-      }
+      } 
       res.json({
         message: "Package Updated Successfully",
         package: updated,
